@@ -67,7 +67,7 @@ const Orders = () => {
         </button>
       </div>
 
-      <div className="order-table">
+      <div className="order-table table-responsive">
         <table>
           <thead>
             <tr>

@@ -102,16 +102,25 @@ export default WatchList;
 const WatchListItem = ({ stock }) => {
   const [showWatchlistActions, setShowWatchlistActions] = useState(false);
 
-  const handleMouseEnter = (e) => {
+  const handleMouseEnter = () => {
     setShowWatchlistActions(true);
   };
 
-  const handleMouseLeave = (e) => {
+  const handleMouseLeave = () => {
     setShowWatchlistActions(false);
   };
 
+  const handleClick = () => {
+    setShowWatchlistActions((prev) => !prev);
+  };
+
   return (
-    <li onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <li 
+      onMouseEnter={handleMouseEnter} 
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
+      className={showWatchlistActions ? "active-item" : ""}
+    >
       <div className="item">
         <p className={stock.isDown ? "down" : "up"}>{stock.name}</p>
         <div className="itemInfo">

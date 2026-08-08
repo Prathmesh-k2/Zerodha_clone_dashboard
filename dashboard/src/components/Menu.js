@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
-  const handleMenuClick = (index) => setSelectedMenu(index);
+  const handleMenuClick = (index) => {
+    setSelectedMenu(index);
+    setIsMobileNavOpen(false);
+  };
+
   const handleProfileClick = () => setIsProfileDropdownOpen(!isProfileDropdownOpen);
 
   const handleLogout = async () => {
     try {
       await fetch("https://zerodha-clone-backend-uc3s.onrender.com/logout", { credentials: "include" });
-    } catch (_) {}
+    } catch (_) { }
     // Go back to frontend landing page
-    window.location.href = "http://localhost:3000";
+    window.location.href = "https://zerodha-clone-frontend-8wvz-phi.vercel.app/";
   };
 
   const menuClass = "menu";
@@ -21,8 +28,21 @@ const Menu = () => {
 
   return (
     <div className="menu-container">
-      <img src="logo.png" style={{ width: "50px" }} alt="logo" />
-      <div className="menus">
+      <div className="menu-brand">
+        <img src="logo.png" style={{ width: "40px" }} alt="logo" />
+      </div>
+
+      {/* Hamburger icon for mobile view */}
+      <button
+        className="mobile-hamburger-btn"
+        onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+        aria-label="Toggle navigation menu"
+        id="mobile-nav-toggle"
+      >
+        {isMobileNavOpen ? <CloseIcon /> : <MenuIcon />}
+      </button>
+
+      <div className={`menus ${isMobileNavOpen ? "mobile-active" : ""}`}>
         <ul>
           <li>
             <Link style={{ textDecoration: "none" }} to="/" onClick={() => handleMenuClick(0)}>
@@ -55,7 +75,7 @@ const Menu = () => {
             </Link>
           </li>
         </ul>
-        <hr />
+        <hr className="nav-divider" />
         <div className="profile" style={{ position: "relative" }} onClick={handleProfileClick}>
           <div className="avatar">ZU</div>
           <p className="username">Account</p>
@@ -73,4 +93,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default Menu;

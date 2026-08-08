@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Apps from "./Apps";
@@ -10,12 +10,33 @@ import Positions from "./Positions";
 import Summary from "./Summary";
 import WatchList from "./WatchList";
 
-
 const Dashboard = () => {
+  const [activeMobileTab, setActiveMobileTab] = useState("watchlist");
+
   return (
     <GeneralContextProvider>
-      <div className="dashboard-container">
-        <WatchList />
+      {/* Mobile Tab Switcher */}
+      <div className="mobile-view-switcher">
+        <button
+          id="mobile-tab-watchlist"
+          className={`mobile-tab-btn ${activeMobileTab === "watchlist" ? "active" : ""}`}
+          onClick={() => setActiveMobileTab("watchlist")}
+        >
+          Watchlist
+        </button>
+        <button
+          id="mobile-tab-content"
+          className={`mobile-tab-btn ${activeMobileTab === "content" ? "active" : ""}`}
+          onClick={() => setActiveMobileTab("content")}
+        >
+          Dashboard Main
+        </button>
+      </div>
+
+      <div className={`dashboard-container mobile-show-${activeMobileTab}`}>
+        <div className="watchlist-wrapper">
+          <WatchList />
+        </div>
 
         <div className="content">
           <Routes>

@@ -1,11 +1,11 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import { holdings } from "./data";
 
 
-const Positions= () => {
-  const[allPositions,setAllPositions]=useState([]);
-    useEffect(() => {
+const Positions = () => {
+  const [allPositions, setAllPositions] = useState([]);
+  useEffect(() => {
     axios.get("https://zerodha-clone-backend-uc3s.onrender.com/allPositions").then((res) => {
       // console.log(res.data);
       setAllPositions(res.data);
